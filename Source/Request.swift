@@ -54,7 +54,7 @@ public protocol RequestRetrier {
     /// - parameter request:    The request that failed due to the encountered error.
     /// - parameter error:      The error encountered when executing the request.
     /// - parameter completion: The completion closure to be executed when retry decision has been determined.
-    func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion)
+    func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: RequestRetryCompletion)
 }
 
 // MARK: -
@@ -389,7 +389,7 @@ open class DataRequest: Request {
     ///
     /// - returns: The request.
     @discardableResult
-    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
+    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: ProgressHandler) -> Self {
         dataDelegate.progressHandler = (closure, queue)
         return self
     }
@@ -484,7 +484,7 @@ open class DownloadRequest: Request {
     ///
     /// - returns: The request.
     @discardableResult
-    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
+    open func downloadProgress(queue: DispatchQueue = DispatchQueue.main, closure: ProgressHandler) -> Self {
         downloadDelegate.progressHandler = (closure, queue)
         return self
     }
@@ -566,7 +566,7 @@ open class UploadRequest: DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    open func uploadProgress(queue: DispatchQueue = DispatchQueue.main, closure: @escaping ProgressHandler) -> Self {
+    open func uploadProgress(queue: DispatchQueue = DispatchQueue.main, closure: ProgressHandler) -> Self {
         uploadDelegate.uploadProgressHandler = (closure, queue)
         return self
     }
